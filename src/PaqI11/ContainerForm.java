@@ -62,6 +62,11 @@ public class ContainerForm extends JFrame {
         priorityGroup.add(radioButton2);
         priorityGroup.add(radioButton3);
 
+
+
+        // Serializar los botones de prioridad
+
+
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
