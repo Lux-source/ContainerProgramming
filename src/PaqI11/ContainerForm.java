@@ -12,11 +12,11 @@ public class ContainerForm extends JFrame {
     private JTextField tfIdentifierTextField;
     private JTextField tfWeightTextField;
     private JLabel Weight;
-    private JCheckBox checkBoxInspected;
+    private JCheckBox checkBoxcustoms;
     private JComboBox<String> countryOfOrigin;
     private JTextArea tfContentDescriptionTextField;
-    private JTextField tfSendingCompanyTextField;
-    private JTextField tfReceivingCompanyTextField;
+    private JTextField tfcompanySendTextField;
+    private JTextField tfcompanyReceivesTextField;
     private JButton btnOK;
     private JButton btnClear;
     private JPanel MainPanel;
@@ -74,7 +74,7 @@ public class ContainerForm extends JFrame {
                     int identifier = Integer.parseInt(tfIdentifierTextField.getText());
                     int weight = Integer.parseInt(tfWeightTextField.getText());
                     String countryOfOrigin = ContainerForm.this.countryOfOrigin.getSelectedItem().toString();
-                    boolean inspected = checkBoxInspected.isSelected();
+                    boolean customs = checkBoxcustoms.isSelected();
                     int priority;
                     if (radioButton1.isSelected()) {
                         priority = 1;
@@ -84,12 +84,12 @@ public class ContainerForm extends JFrame {
                         priority = 3;
                     }
                     String contentDescription = ContainerForm.this.tfContentDescriptionTextField.getText();
-                    String sendingCompany = tfSendingCompanyTextField.getText();
-                    String receivingCompany = tfReceivingCompanyTextField.getText();
+                    String companySend = tfcompanySendTextField.getText();
+                    String companyReceives = tfcompanyReceivesTextField.getText();
                     String stateDescription = ContainerForm.this.stateDescription.getText();
 
-                    Container container = new Container(identifier, weight, countryOfOrigin, inspected, priority,
-                            contentDescription, sendingCompany, receivingCompany, stateDescription);
+                    Container container = new Container(identifier, weight, countryOfOrigin, customs, priority,
+                            contentDescription, companySend, companyReceives, stateDescription);
                     boolean isAdded = containerHub.addContainer(container);
 
                     if (isAdded) {
@@ -101,10 +101,10 @@ public class ContainerForm extends JFrame {
                     tfIdentifierTextField.setText("");
                     tfWeightTextField.setText("");
                     ContainerForm.this.countryOfOrigin.setSelectedIndex(0);
-                    checkBoxInspected.setSelected(false);
+                    checkBoxcustoms.setSelected(false);
                     tfContentDescriptionTextField.setText("");
-                    tfSendingCompanyTextField.setText("");
-                    tfReceivingCompanyTextField.setText("");
+                    tfcompanySendTextField.setText("");
+                    tfcompanyReceivesTextField.setText("");
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(ContainerForm.this, "Please enter the valid numbers for Identifiers and Weight fields.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 }
@@ -116,10 +116,10 @@ public class ContainerForm extends JFrame {
                 tfIdentifierTextField.setText("");
                 tfWeightTextField.setText("");
                 ContainerForm.this.countryOfOrigin.setSelectedIndex(0);
-                checkBoxInspected.setSelected(false);
+                checkBoxcustoms.setSelected(false);
                 tfContentDescriptionTextField.setText("General Description Here");
-                tfSendingCompanyTextField.setText("");
-                tfReceivingCompanyTextField.setText("");
+                tfcompanySendTextField.setText("");
+                tfcompanyReceivesTextField.setText("");
                 stateDescription.setText("State Description Here");
                 taOutput.setText("");
             }

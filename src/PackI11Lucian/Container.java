@@ -1,31 +1,31 @@
 package PackI11Lucian;
 
 public class Container {
-    private int identifier;
-    private int weight;
-    private String countryOfOrigin;
-    private boolean inspected;
-    private int priority;
-    private String contentDescription;
-    private String sendingCompany;
-    private String receivingCompany;
-    private String stateDescription;
+    protected int identifier;
+    protected int weight;
+    protected String countryOfOrigin;
+    protected boolean customs;
+    protected int priority;
+    protected String contentDescription;
+    protected String companySend;
+    protected String companyReceives;
 
     // Constructors, getters, setters, and other methods will be implemented here
 
     // Add this inside the Container class
-    public Container(int identifier, int weight, String countryOfOrigin, boolean inspected, int priority,
-                     String contentDescription, String sendingCompany, String receivingCompany, String stateDescription) {
+    public Container(int identifier, int weight, String countryOfOrigin, boolean customs, int priority,
+                     String contentDescription, String companySend, String companyReceives, String stateDescription) {
         this.identifier = identifier;
         this.weight = weight;
         this.countryOfOrigin = countryOfOrigin;
-        this.inspected = inspected;
+        this.customs = customs;
         this.priority = priority;
         this.contentDescription = contentDescription;
-        this.sendingCompany = sendingCompany;
-        this.receivingCompany = receivingCompany;
-        this.stateDescription = stateDescription;
+        this.companySend = companySend;
+        this.companyReceives = companyReceives;
     }
+
+    public Container() {}
 
     public int getIdentifier() {
         return identifier;
@@ -51,25 +51,18 @@ public class Container {
         this.countryOfOrigin = countryOfOrigin;
     }
 
-    public boolean isInspected() {
-        return inspected;
+    public boolean iscustoms() {
+        return customs;
     }
 
-    public void setInspected(boolean inspected) {
-        this.inspected = inspected;
+    public void setcustoms(boolean customs) {
+        this.customs = customs;
     }
 
     public int getPriority() {
         return priority;
     }
 
-    public String getStateDescription() {
-        return stateDescription;
-    }
-
-    public void setStateDescription(String stateDescription) {
-        this.stateDescription = stateDescription;
-    }
 
     public void setPriority(int priority) {
         this.priority = priority;
@@ -83,20 +76,20 @@ public class Container {
         this.contentDescription = contentDescription;
     }
 
-    public String getSendingCompany() {
-        return sendingCompany;
+    public String getcompanySend() {
+        return companySend;
     }
 
-    public void setSendingCompany(String sendingCompany) {
-        this.sendingCompany = sendingCompany;
+    public void setcompanySend(String companySend) {
+        this.companySend = companySend;
     }
 
-    public String getReceivingCompany() {
-        return receivingCompany;
+    public String getcompanyReceives() {
+        return companyReceives;
     }
 
-    public void setReceivingCompany(String receivingCompany) {
-        this.receivingCompany = receivingCompany;
+    public void setcompanyReceives(String companyReceives) {
+        this.companyReceives = companyReceives;
     }
 
     public String toString() {
@@ -104,12 +97,12 @@ public class Container {
                 "identifier=" + identifier +
                 ", weight=" + weight +
                 ", countryOfOrigin='" + countryOfOrigin + '\'' +
-                ", inspected=" + inspected +
+                ", customs=" + customs +
                 ", priority=" + priority +
                 ", contentDescription='" + contentDescription + '\'' +
-                ", sendingCompany='" + sendingCompany + '\'' +
-                ", receivingCompany='" + receivingCompany + '\'' +
-                ", stateDescription='" + stateDescription + '\'' +
+                ", companySend='" + companySend + '\'' +
+                ", companyReceives='" + companyReceives + '\'' +
+                ", stateDescription='" + '\'' +
                 '}';
     }
 }
