@@ -9,35 +9,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ContainerForm extends JFrame {
-    private JTextField tfIdentifierTextField;
-    private JTextField tfWeightTextField;
-    private JLabel Weight;
-    private JCheckBox checkBoxcustoms;
-    private JComboBox<String> countryOfOrigin;
-    private JTextArea tfContentDescriptionTextField;
-    private JTextField tfcompanySendTextField;
-    private JTextField tfcompanyReceivesTextField;
-    private JButton btnOK;
-    private JButton btnClear;
-    private JPanel MainPanel;
-    private JLabel ID;
+    private JPanel mainPanel;
+    private JLabel idNumber;
+    private JLabel weight;
+    private JLabel sendingCompany;
+    private JLabel receiverCompany;
+    private JTextField tfIdNumber;
+    private JTextField tfWeight;
     private JTextArea taOutput;
-    private JButton btnCountContainers;
-    private JButton btnFindContainer;
 
     private ContainerHub containerHub;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
-    private JRadioButton radioButton3;
+
     ImageIcon imageIcon = new ImageIcon("Docker_(container_engine)_logo.png");
-    JLabel icono = new JLabel(imageIcon);
-    private JTextArea stateDescription;
+
     private JButton btnShowDescription;
 
 
     public ContainerForm() {
 
-        setContentPane(MainPanel);
+        setContentPane(mainPanel);
         setTitle("Container Port");
         setSize(1400, 800);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -53,8 +43,8 @@ public class ContainerForm extends JFrame {
         JScrollPane scrollPane = new JScrollPane(taOutput);
         scrollPane.setPreferredSize(new Dimension(400, 200));
 
-        MainPanel.setLayout(new BorderLayout());
-        MainPanel.add(scrollPane, BorderLayout.CENTER);
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         ButtonGroup priorityGroup = new ButtonGroup();
 
