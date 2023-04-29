@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ContainerProgrammingII:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ContainerProgrammingII_jar</output-path>
+    <root id="archive" name="ContainerProgrammingII.jar">
+      <element id="module-output" name="ContainerProgrammingII" />
+    </root>
+  </artifact>
+</component>
