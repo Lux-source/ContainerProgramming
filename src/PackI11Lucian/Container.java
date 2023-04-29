@@ -1,30 +1,29 @@
 package PackI11Lucian;
 
 public class Container {
-    private int identifier;
-    private int weight;
-    private String countryOfOrigin;
-    private boolean inspected;
-    private int priority;
-    private String contentDescription;
-    private String sendingCompany;
-    private String receivingCompany;
-    private String stateDescription;
+    protected int identifier;
+    protected int weight;
+    protected String countryOfOrigin;
+    protected boolean customs;
+    protected int priority;
+    protected String contentDescription;
+    protected String sendingCompany;
+    protected String receivingCompany;
 
-    // Constructors, getters, setters, and other methods will be implemented here
+    // Constructors, getters, setters
 
-    // Add this inside the Container class
-    public Container(int identifier, int weight, String countryOfOrigin, boolean inspected, int priority,
-                     String contentDescription, String sendingCompany, String receivingCompany, String stateDescription) {
+    public Container(int identifier, int weight, String countryOfOrigin, boolean customs, int priority, String contentDescription, String sendingCompany, String receivingCompany, String stateDescription) {
         this.identifier = identifier;
         this.weight = weight;
         this.countryOfOrigin = countryOfOrigin;
-        this.inspected = inspected;
+        this.customs = customs;
         this.priority = priority;
         this.contentDescription = contentDescription;
         this.sendingCompany = sendingCompany;
         this.receivingCompany = receivingCompany;
-        this.stateDescription = stateDescription;
+    }
+
+    public Container() {
     }
 
     public int getIdentifier() {
@@ -51,25 +50,18 @@ public class Container {
         this.countryOfOrigin = countryOfOrigin;
     }
 
-    public boolean isInspected() {
-        return inspected;
+    public boolean isCustoms() {
+        return customs;
     }
 
-    public void setInspected(boolean inspected) {
-        this.inspected = inspected;
+    public void setCustoms(boolean customs) {
+        this.customs = customs;
     }
 
     public int getPriority() {
         return priority;
     }
 
-    public String getStateDescription() {
-        return stateDescription;
-    }
-
-    public void setStateDescription(String stateDescription) {
-        this.stateDescription = stateDescription;
-    }
 
     public void setPriority(int priority) {
         this.priority = priority;
@@ -99,17 +91,17 @@ public class Container {
         this.receivingCompany = receivingCompany;
     }
 
+    @Override
     public String toString() {
         return "Container{" +
                 "identifier=" + identifier +
                 ", weight=" + weight +
-                ", countryOfOrigin='" + countryOfOrigin + '\'' +
-                ", inspected=" + inspected +
+                ", origin country='" + countryOfOrigin + '\'' +
+                ", custom inspection=" + customs +
                 ", priority=" + priority +
-                ", contentDescription='" + contentDescription + '\'' +
-                ", sendingCompany='" + sendingCompany + '\'' +
-                ", receivingCompany='" + receivingCompany + '\'' +
-                ", stateDescription='" + stateDescription + '\'' +
+                ", content description='" + contentDescription + '\'' +
+                ", sending company='" + sendingCompany + '\'' +
+                ", receiving company='" + receivingCompany + '\'' +
                 '}';
     }
 }
