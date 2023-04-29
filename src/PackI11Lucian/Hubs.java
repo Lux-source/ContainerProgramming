@@ -3,16 +3,16 @@ package PackI11Lucian;
 import java.util.Arrays;
 
 public class Hubs {
-    private Container [][] containers;
+    private Container[][] containers;
 
     private static final int MAX_ROWS = 10;
     private static final int MAX_COLUMNS = 12;
 
-    private Hubs(){
+    public Hubs() {
         containers = new Container[MAX_ROWS][MAX_COLUMNS];
     }
 
-    public Hubs(Container[][] hub){
+    public Hubs(Container[][] hub) {
         this.containers = hub;
     }
 
@@ -31,71 +31,66 @@ public class Hubs {
     }
 
     public void emptyHub() {
-        int rows = this.containers.length;
-        int columns = this.containers[0].length;
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                setDefaultValues(this.containers[i][j]);
+        for (int row = 0; row < MAX_ROWS; row++) {
+            for (int column = 0; column < MAX_COLUMNS; column++) {
+                setDefaultValues(containers[row][column]);
             }
         }
     }
 
-    private void setDefaultValues(Container element) {
-        if (element == null) {
-            element = new Container();
+    private void setDefaultValues(Container container) {
+        if (container == null) {
+            container = new Container();
         } else {
-            element.identifier = -1;
-            element.contentDescription = "Empty";
-            element.priority = 0;
-            element.weight = 0;
-            element.countryOfOrigin = "None";
-            element.companySend = "None";
-            element.companyReceives = "None";
-            element.customs = false;
+            container.setIdentifier(-1);
+            container.setContentDescription("Empty");
+            container.setPriority(0);
+            container.setWeight(0);
+            container.setCountryOfOrigin("None");
+            container.setSendingCompany("None");
+            container.setReceivingCompany("None");
+            container.setCustoms(false);
         }
-    }
-    public String printHubOccupancy() { //toString method we can use this or the one created with the Array toString
-        StringBuilder stringHub = new StringBuilder();
-        for (int i = 0; i < MAX_ROWS; i++) {
-            for (int j = 0; j < MAX_COLUMNS; j++) {
-                if (containers[i][j] == null) {
-                    stringHub.append("F ");//Free
-                } else if (containers[i][j] != null) {
-                    stringHub.append("O ");//Ocupated
-                }
-            }
-            stringHub.append("\n");
-        }
-        return stringHub.toString();
     }
 
-    public void setContainer(Container cont) {
-        if (cont == null) {
+    // printHubOccupancy shows the matrix with the Free (F) and Occupied (O) allocations
+    public String printHubOccupancy() {
+        StringBuilder hubString = new StringBuilder();
+        for(int row = 0; row < MAX_ROWS; row++){
+            for(int column = 0; column < MAX_COLUMNS; column++){
+                hubString.append(containers[row][column] == null ? "F " : "O ");
+            }
+            hubString.append("\n");
+        }
+        return hubString.toString();
+    }
+
+    public void addContainer(Container container) {
+        if (container == null) {
             System.out.println("Container cannot be null");
         }
 
-        if (cont.priority == 1) {
+        if (container.priority == 1) {
             for (int i = 9; i >= 0; i--) {
                 if (containers[i][0] == null) {
-                    containers[i][0] = cont;
+                    containers[i][0] = container;
                     System.out.println("Successful");
                     return;
                 }
             }
-        } else if (cont.priority == 2) {
+        } else if (container.priority == 2) {
             for (int i = 9; i >= 0; i--) {
                 if (containers[i][1] == null) {
-                    containers[i][1] = cont;
+                    containers[i][1] = container;
                     System.out.println("Successful");
                     return;
                 }
             }
-        } else if (cont.priority == 3) {
+        } else if (container.priority == 3) {
             for (int i = 2; i < MAX_COLUMNS; i++) {
                 for (int j = 9; j >= 0; j--) {
                     if (containers[j][i] == null) {
-                        containers[j][i] = cont;
+                        containers[j][i] = container;
                         System.out.println("Successful");
                         return;
                     }
@@ -104,34 +99,39 @@ public class Hubs {
         }
     }
 
-    public void deleteContainer(int column) {
-        for (int i = 0; i < MAX_ROWS; i++) {
-            if (containers[i][column - 1] != null) {
-                containers[i][column - 1] = null;
+    public void deleteContainer(int column) throws InvalidColumnException {
+        if (column > MAX_COLUMNS) {
+            throw new InvalidColumnException("Column number is greater than the maximum existing columns");
+        }
+        for (int row = 0; row < MAX_ROWS; row++) {
+            if (containers[row][column - 1] != null) {
+                containers[row][column - 1] = null;
                 System.out.println("Unstack successful");
                 return;
             }
         }
         System.out.println("There are no containers in this column");
     }
-    public String getContainerDescriptionById(int ID) {
-        for (int i = 0; i < MAX_ROWS; i++) {
-            for (int j = 0; j < MAX_COLUMNS; j++) {
-                if (containers[i][j] != null && containers[i][j].getIdentifier() == ID)
-                    return containers[i][j].toString();
+
+    public String getContainerDescriptionById(int id) {
+        for (int row = 0; row < MAX_ROWS; row++) {
+            for (int column = 0; column < MAX_COLUMNS; column++) {
+                if (containers[row][column] != null && containers[row][column].getIdentifier() == id)
+                    return containers[row][column].toString();
             }
         }
-        return "There is no container with ID " + ID;
+        return "There is no container with ID " + id;
     }
-    public int countContainers(String country){
-        int count=0;
+
+    public int countContainers(String country) {
+        int containerCount = 0;
         for (int i = 0; i < MAX_ROWS; i++) {
             for (int j = 0; j < MAX_COLUMNS; j++) {
-                if(containers[i][j] != null && containers[i][j].getCountryOfOrigin().equals(country)){
-                    count++;
+                if (containers[i][j] != null && containers[i][j].getCountryOfOrigin().equals(country)) {
+                    containerCount++;
                 }
             }
         }
-        return count;
+        return containerCount;
     }
 }

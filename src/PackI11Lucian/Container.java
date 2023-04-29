@@ -7,25 +7,24 @@ public class Container {
     protected boolean customs;
     protected int priority;
     protected String contentDescription;
-    protected String companySend;
-    protected String companyReceives;
+    protected String sendingCompany;
+    protected String receivingCompany;
 
-    // Constructors, getters, setters, and other methods will be implemented here
+    // Constructors, getters, setters
 
-    // Add this inside the Container class
-    public Container(int identifier, int weight, String countryOfOrigin, boolean customs, int priority,
-                     String contentDescription, String companySend, String companyReceives, String stateDescription) {
+    public Container(int identifier, int weight, String countryOfOrigin, boolean customs, int priority, String contentDescription, String sendingCompany, String receivingCompany, String stateDescription) {
         this.identifier = identifier;
         this.weight = weight;
         this.countryOfOrigin = countryOfOrigin;
         this.customs = customs;
         this.priority = priority;
         this.contentDescription = contentDescription;
-        this.companySend = companySend;
-        this.companyReceives = companyReceives;
+        this.sendingCompany = sendingCompany;
+        this.receivingCompany = receivingCompany;
     }
 
-    public Container() {}
+    public Container() {
+    }
 
     public int getIdentifier() {
         return identifier;
@@ -51,11 +50,11 @@ public class Container {
         this.countryOfOrigin = countryOfOrigin;
     }
 
-    public boolean iscustoms() {
+    public boolean isCustoms() {
         return customs;
     }
 
-    public void setcustoms(boolean customs) {
+    public void setCustoms(boolean customs) {
         this.customs = customs;
     }
 
@@ -76,33 +75,33 @@ public class Container {
         this.contentDescription = contentDescription;
     }
 
-    public String getcompanySend() {
-        return companySend;
+    public String getSendingCompany() {
+        return sendingCompany;
     }
 
-    public void setcompanySend(String companySend) {
-        this.companySend = companySend;
+    public void setSendingCompany(String sendingCompany) {
+        this.sendingCompany = sendingCompany;
     }
 
-    public String getcompanyReceives() {
-        return companyReceives;
+    public String getReceivingCompany() {
+        return receivingCompany;
     }
 
-    public void setcompanyReceives(String companyReceives) {
-        this.companyReceives = companyReceives;
+    public void setReceivingCompany(String receivingCompany) {
+        this.receivingCompany = receivingCompany;
     }
 
+    @Override
     public String toString() {
         return "Container{" +
                 "identifier=" + identifier +
                 ", weight=" + weight +
-                ", countryOfOrigin='" + countryOfOrigin + '\'' +
-                ", customs=" + customs +
+                ", origin country='" + countryOfOrigin + '\'' +
+                ", custom inspection=" + customs +
                 ", priority=" + priority +
-                ", contentDescription='" + contentDescription + '\'' +
-                ", companySend='" + companySend + '\'' +
-                ", companyReceives='" + companyReceives + '\'' +
-                ", stateDescription='" + '\'' +
+                ", content description='" + contentDescription + '\'' +
+                ", sending company='" + sendingCompany + '\'' +
+                ", receiving company='" + receivingCompany + '\'' +
                 '}';
     }
 }
