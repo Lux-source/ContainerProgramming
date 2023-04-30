@@ -3,4 +3,4 @@ This project is the part 2 of our FPII course, where we are learning how to inte
 ## Take into account
 [x] You need to use the text field, both for piling up containers and also for looking for specific IDs
 
-[x] You can clear the text areas by clicking the click button
+[x] If the data is not correct or you don't choosee a priority an exception may pop up.
