@@ -56,8 +56,8 @@ public class Hubs {
     // printHubOccupancy shows the matrix with the Free (F) and Occupied (O) allocations
     public String printHubOccupancy() {
         StringBuilder hubString = new StringBuilder();
-        for(int row = 0; row < MAX_ROWS; row++){
-            for(int column = 0; column < MAX_COLUMNS; column++){
+        for (int row = 0; row < MAX_ROWS; row++) {
+            for (int column = 0; column < MAX_COLUMNS; column++) {
                 hubString.append(containers[row][column] == null ? "F " : "O ");
             }
             hubString.append("\n");
@@ -133,5 +133,19 @@ public class Hubs {
             }
         }
         return containerCount;
+    }
+
+    public boolean isFull(int priority) {
+        if (priority == 1) {
+            if (containers[0][0] != null)
+                return true;
+        } else if (priority == 2) {
+            if (containers[0][1] != null)
+                return true;
+        } else if (priority == 3) {
+            if (containers[0][MAX_COLUMNS - 1] != null)
+                return true;
+        }
+        return false;
     }
 }
