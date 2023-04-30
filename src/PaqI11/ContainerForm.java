@@ -4,6 +4,9 @@ import PackI11Lucian.Container;
 import PackI11Lucian.Hubs;
 import PackI11Lucian.InvalidColumnException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,6 +44,19 @@ public class ContainerForm extends JFrame {
     private JLabel imageLogo;
     private JTextArea taOutput;
 
+    private List<Hubs> hubsList;
+    private JComboBox hubsComboBox;
+    private JTextArea stateHubsTextArea1;
+    private JTextArea stateHubsTextArea2;
+    private JLabel chooseHub;
+
+    public JComboBox getHubsComboBox() {
+        return hubsComboBox;
+    }
+
+    public void setHubsComboBox(JComboBox hubsComboBox) {
+        this.hubsComboBox = hubsComboBox;
+    }
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -303,48 +319,55 @@ public class ContainerForm extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-        Hubs hub = new Hubs();
+        hubsList = new ArrayList<>();
+        hubsList.add(new Hubs());
+        hubsList.add(new Hubs());
+        hubsList.add(new Hubs());
 
         // Set up action listeners for buttons
-        setUpPileButtonActionListener(hub);
-        setUpUnpileButtonActionListener(hub);
-        setUpNumberOfContainersButtonActionListener(hub);
-        setUpContainerDescriptionButtonActionListener(hub);
+        setUpPileButtonActionListener();
+        setUpUnpileButtonActionListener();
+        setUpNumberOfContainersButtonActionListener();
+        setUpContainerDescriptionButtonActionListener();
+
 
     }
 
-    private void setUpContainerDescriptionButtonActionListener(Hubs hub) {
+    private void setUpContainerDescriptionButtonActionListener() {
         containerDescriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(tfIdNumber.getText());
+                Hubs hub = hubsList.get(getHub());
                 showDescriptionTextArea.setText(hub.getContainerDescriptionById(id));
             }
         });
     }
 
-    private void setUpNumberOfContainersButtonActionListener(Hubs hub) {
+    private void setUpNumberOfContainersButtonActionListener() {
         // Add ActionListener for a button to display the number of containers from a specific country
         numberOfContainersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == numberOfContainersButton) {
                     String country = (String) countriesComboBox2.getSelectedItem();
-                    int count = (int) hub.countContainers(country);
+                    Hubs hub = hubsList.get(getHub());
+                    int count = hub.countContainers(country);
                     numberOfContainersTextField.setText("" + count);
                 }
             }
         });
     }
 
-    private void setUpUnpileButtonActionListener(Hubs hub) {
+    private void setUpUnpileButtonActionListener() {
         unpileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     int column = Integer.parseInt(columnNumberTextField.getText());
+                    Hubs hub = hubsList.get(getHub());
                     hub.deleteContainer(column);
-                    stateHubsTextArea.setText(hub.printHubOccupancy());
+                    updateHubsStatus();
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(ContainerForm.this, "Column number should be an integer", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 } catch (InvalidColumnException exception) {
@@ -354,13 +377,13 @@ public class ContainerForm extends JFrame {
         });
     }
 
-    private void setUpPileButtonActionListener(Hubs hub) {
+    private void setUpPileButtonActionListener() {
         pileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int idNumber = Integer.parseInt(tfIdNumber.getText());
-                    int weight = Integer.parseInt(tfWeight.getText());
+                    int priority = checkPriority();
+
 
                     if (!radioButton1.isSelected() && !radioButton2.isSelected() && !radioButton3.isSelected()) {
                         throw new Exception("Priority not assessed");
@@ -373,16 +396,26 @@ public class ContainerForm extends JFrame {
                     container.setReceivingCompany(tfReceiverCompany.getText());
                     container.setCountryOfOrigin((String) countriesComboBox1.getSelectedItem());
                     container.setCustoms(customCheckBox.isSelected());
-                    if (radioButton1.isSelected()) {
+                    container.setPriority(priority);
+
+                    /*if (radioButton1.isSelected()) {
                         container.setPriority(1);
                     } else if (radioButton2.isSelected()) {
                         container.setPriority(2);
                     } else if (radioButton3.isSelected()) {
                         container.setPriority(3);
+                    }*/
+
+                    for(Hubs hub : hubsList){
+
+                        if (!hub.isFull(priority)){
+                            hub.addContainer(container);
+                            updateHubsStatus();
+                            break;
+                            //stateHubsTextArea.setText(hub.printHubOccupancy());
+                        }
                     }
 
-                    hub.addContainer(container);
-                    stateHubsTextArea.setText(hub.printHubOccupancy());
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(ContainerForm.this, "ID Number and Weight should be integers", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception exception) {
@@ -392,6 +425,38 @@ public class ContainerForm extends JFrame {
         });
     }
 
+    // Read Hubs Combo Box and get hub id for hubsList
+    private int getHub(){
+        int hubNumber = 0;
+        if(hubsComboBox.getSelectedItem() == "Hub 1"){
+            hubNumber = 0;
+        } else if (hubsComboBox.getSelectedItem() == "Hub 2") {
+            hubNumber = 1;
+        } else if (hubsComboBox.getSelectedItem() == "Hub 3") {
+            hubNumber = 2;
+        }
+        return hubNumber;
+    }
+
+    private int checkPriority() {
+        int priority = 0;
+
+        if (radioButton1.isSelected()) {
+            priority = 1;
+        } else if (radioButton2.isSelected()) {
+            priority = 2;
+        } else if (radioButton3.isSelected()) {
+            priority = 3;
+        }
+
+        return priority;
+    }
+
+    private void updateHubsStatus(){
+        stateHubsTextArea.setText(hubsList.get(0).printHubOccupancy());
+        stateHubsTextArea1.setText(hubsList.get(1).printHubOccupancy());
+        stateHubsTextArea2.setText(hubsList.get(2).printHubOccupancy());
+    }
 
     public static void main(String[] args) {
         ContainerForm myContainer = new ContainerForm();

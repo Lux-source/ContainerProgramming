@@ -93,15 +93,15 @@ public class Container {
 
     @Override
     public String toString() {
-        return "Container{" +
-                "identifier=" + identifier +
-                ", weight=" + weight +
-                ", origin country='" + countryOfOrigin + '\'' +
-                ", custom inspection=" + customs +
-                ", priority=" + priority +
-                ", content description='" + contentDescription + '\'' +
-                ", sending company='" + sendingCompany + '\'' +
-                ", receiving company='" + receivingCompany + '\'' +
-                '}';
+        return "Container {" +
+                "\n  identifier: " + identifier +
+                "\n  weight: " + weight +
+                "\n  origin country: " + countryOfOrigin +
+                "\n  custom inspection: " + customs +
+                "\n  priority: " + priority +
+                "\n  content description: " + contentDescription +
+                "\n  sending company: " + sendingCompany +
+                "\n  receiving company: " + receivingCompany +
+                "\n}";
     }
 }
