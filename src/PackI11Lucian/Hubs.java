@@ -1,6 +1,8 @@
+//Lucian Andrei Negoita
 package PackI11Lucian;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.ArrayList;
 
 public class Hubs {
     private Container[][] containers;
@@ -148,4 +150,32 @@ public class Hubs {
         }
         return false;
     }
+
+    //Exam port
+/*    public int countWeight(int weight){
+        int countWeight = 0;
+        if(weight >= countWeight){
+            countWeight = weight;
+        }
+        return countWeight;
+    }*/
+
+    public String getContainerDescriptionByWeight(int weight) {
+        for (int row = 0; row < MAX_ROWS; row++) {
+            for (int column = 0; column < MAX_COLUMNS; column++) {
+                if (containers[row][column] != null && containers[row][column].getWeight() <= weight)
+                    return containers[row][column].toStringCheck();
+            }
+        }
+        return "There is no container with less or equal weight: " + weight;
+    }
+
+
+    /*public boolean isLessEqualWeight(int weight, Hubs hub){
+        if(weight >= )
+
+
+        return false;
+    }*/
+
 }

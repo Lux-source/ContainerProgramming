@@ -1,3 +1,4 @@
+//Lucian Andrei Negoita
 package PackI11Lucian;
 
 public class Container {
@@ -96,12 +97,27 @@ public class Container {
         return "Container {" +
                 "\n  identifier: " + identifier +
                 "\n  weight: " + weight +
-                "\n  origin country: " + countryOfOrigin +
+                /*"\n  origin country: " + countryOfOrigin +*/
                 "\n  custom inspection: " + customs +
-                "\n  priority: " + priority +
-                "\n  content description: " + contentDescription +
+                /*"\n  priority: " + priority +*/
+                /* "\n  content description: " + contentDescription +*/
                 "\n  sending company: " + sendingCompany +
-                "\n  receiving company: " + receivingCompany +
+                /*"\n  receiving company: " + receivingCompany +*/
+                "\n}";
+    }
+
+    //Exam port
+
+    public String toStringCheck() {
+        return "Container {" +
+                "\n  identifier: " + identifier +
+                "\n  weight: " + weight +
+                /*"\n  origin country: " + countryOfOrigin +*/
+                "\n  custom inspection: " + (customs = true) +
+                /*"\n  priority: " + priority +*/
+                /* "\n  content description: " + contentDescription +*/
+                "\n  sending company: " + sendingCompany +
+                /*"\n  receiving company: " + receivingCompany +*/
                 "\n}";
     }
 }
