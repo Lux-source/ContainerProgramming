@@ -1,3 +1,4 @@
+//Lucian Andrei Negoita
 package PaqI11;
 
 import PackI11Lucian.Container;
@@ -25,6 +26,7 @@ public class ContainerForm extends JFrame {
     private JButton unpileButton;
     private JLabel operationsLabel;
     private JButton containerDescriptionButton;
+    private JButton containerDescriptionWeightButton;
     private JButton numberOfContainersButton;
     private JLabel countryLabel;
     private JLabel priorityLabel;
@@ -49,6 +51,17 @@ public class ContainerForm extends JFrame {
     private JTextArea stateHubsTextArea1;
     private JTextArea stateHubsTextArea2;
     private JLabel chooseHub;
+
+
+    //Setters getters for ContainerDescriptionWeightButton
+
+    public JButton getContainerDescriptionWeightButton() {
+        return containerDescriptionWeightButton;
+    }
+
+    public void setContainerDescriptionButton(JButton containerDescriptionButton) {
+        this.containerDescriptionButton = containerDescriptionButton;
+    }
 
     public JComboBox getHubsComboBox() {
         return hubsComboBox;
@@ -329,8 +342,25 @@ public class ContainerForm extends JFrame {
         setUpUnpileButtonActionListener();
         setUpNumberOfContainersButtonActionListener();
         setUpContainerDescriptionButtonActionListener();
+        //Exam port
+        setupCheckByWeight();
 
 
+    }
+
+    // Exam port
+    private void setupCheckByWeight() {
+        containerDescriptionWeightButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //int id = Integer.parseInt(tfIdNumber.getText());
+                Hubs hub = hubsList.get(getHub()); // Con esto tengo ya el número
+                int weight = Integer.parseInt(tfWeight.getText()); // Con esto ya tengo el peso
+                // if (weight <= )
+                //showDescriptionTextArea.setText(hub.getContainerDescriptionById(id));
+                showDescriptionTextArea.setText(hub.getContainerDescriptionByWeight(weight));
+            }
+        });
     }
 
     private void setUpContainerDescriptionButtonActionListener() {
@@ -339,7 +369,9 @@ public class ContainerForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(tfIdNumber.getText());
                 Hubs hub = hubsList.get(getHub());
+                //int weight = Integer.parseInt(tfWeight.getText()); // We left the button so we can look for ids too
                 showDescriptionTextArea.setText(hub.getContainerDescriptionById(id));
+                /*showDescriptionTextArea.setText(hub.getContainerDescriptionByWeight(weight));*/
             }
         });
     }
@@ -406,9 +438,9 @@ public class ContainerForm extends JFrame {
                         container.setPriority(3);
                     }*/
 
-                    for(Hubs hub : hubsList){
+                    for (Hubs hub : hubsList) {
 
-                        if (!hub.isFull(priority)){
+                        if (!hub.isFull(priority)) {
                             hub.addContainer(container);
                             updateHubsStatus();
                             break;
@@ -426,9 +458,9 @@ public class ContainerForm extends JFrame {
     }
 
     // Read Hubs Combo Box and get hub id for hubsList
-    private int getHub(){
+    private int getHub() {
         int hubNumber = 0;
-        if(hubsComboBox.getSelectedItem() == "Hub 1"){
+        if (hubsComboBox.getSelectedItem() == "Hub 1") {
             hubNumber = 0;
         } else if (hubsComboBox.getSelectedItem() == "Hub 2") {
             hubNumber = 1;
@@ -452,7 +484,7 @@ public class ContainerForm extends JFrame {
         return priority;
     }
 
-    private void updateHubsStatus(){
+    private void updateHubsStatus() {
         stateHubsTextArea.setText(hubsList.get(0).printHubOccupancy());
         stateHubsTextArea1.setText(hubsList.get(1).printHubOccupancy());
         stateHubsTextArea2.setText(hubsList.get(2).printHubOccupancy());
